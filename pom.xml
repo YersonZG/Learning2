@@ -29,7 +29,8 @@
   <version>0.1-SNAPSHOT</version>
 
   <name>Simple Application</name>
-
+  <inceptionYear>2016</inceptionYear>
+  
   <licenses>
     <license>
       <name>MIT License</name>
@@ -58,7 +59,7 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
 
-    <spring-boot.version>1.4.1.RELEASE</spring-boot.version>
+    <spring-boot.version>2.1.4.RELEASE</spring-boot.version>
   </properties>
 
   <dependencyManagement>
@@ -69,6 +70,16 @@
         <version>${spring-boot.version}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <dependency>
+        <!-- 
+          Required to fix CVE on org.apache.commons:commons-compress:jar:1.9
+          until 2.2.0 of Spring-Boot is released.
+          See https://app.snyk.io/vuln/SNYK-JAVA-ORGAPACHECOMMONS-32473.
+        -->
+        <groupId>org.webjars</groupId>
+        <artifactId>webjars-locator-core</artifactId>
+        <version>0.37</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -89,17 +100,17 @@
     <dependency>
       <groupId>org.webjars</groupId>
       <artifactId>webjars-locator</artifactId>
-      <version>0.32</version>
+      <version>0.36</version>
     </dependency>
     <dependency>
       <groupId>org.webjars.npm</groupId>
       <artifactId>angular</artifactId>
-      <version>1.5.8</version>
+      <version>1.7.8</version>
     </dependency>
     <dependency>
       <groupId>org.webjars.npm</groupId>
       <artifactId>bootstrap</artifactId>
-      <version>4.0.0-alpha.4</version>
+      <version>4.3.1</version>
     </dependency>
 
     <!-- Tests -->
@@ -111,22 +122,22 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.12</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>3.4.0</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.jayway.restassured</groupId>
+      <groupId>io.rest-assured</groupId>
       <artifactId>rest-assured</artifactId>
-      <version>2.9.0</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
   <build>
+    <finalName>${project.artifactId}</finalName>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
